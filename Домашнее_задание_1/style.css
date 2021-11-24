@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+.wrapper {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding-left: 17px;
+    padding-right: 17px;
+}
+/* Шапка главной страницы */
+
+.header {
+    background-color: grey;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.header-left-block {
+    width: 100px;
+    height: 30px;
+    background-color: tomato;
+    display: inline-block;
+}
+
+.header-logo-name {
+    color: white;
+    font-size: 25px;
+    text-align: center;
+}
+
+.header-navbar {
+    display: flex;
+    align-items: center;
+}
+
+.header-navbar-link {
+    margin-right: 20px;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+.header-navbar-link:hover {
+    color: tomato;
+    transition: 0.4s;
+}
+
+.header-right-block {
+    align-self: center;
+}
+
+.cart-button {
+    border: none;
+    background-color: tomato;
+    padding: 5px 10px;
+    color: white;
+}
+
+.cart-button:hover {
+    background-color: rgb(214, 89, 67);
+    transition: 0.4s;
+}
+
+.cart-button:active {
+    transform: scale(0.90);
+}
+
+/* Раздел main */
+
+.main {
+    background-color: whitesmoke;
+}
+
+.main-wrapper {
+    padding-top: 17px;
+    padding-bottom: 30px;
+}
+
+.main-wrapper-header {
+    background-color: tomato;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    margin-bottom: 17px;
+}
+
+.main-header-text {
+    font-size: 30px;
+    color: white;
+}
+
+.goods-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 30px;
+}
+
+.goods-item {
+    display: flex;
+    flex-direction: column;
+    width: 340px;
+    background-color: rgb(240, 222, 199);
+    padding: 15px;
+}
+
+.goods-item-heading {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+/* Подвал сайта */
+
+.footer {
+    background-color: grey;
+}
+
+.footer-wrapper {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.footer-copyrights {
+    color: white;
+    font-size: 15px;
+}
