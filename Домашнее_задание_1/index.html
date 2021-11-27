@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta  charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>eShop</title>
+   <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+   <div  class="header-wrapper wrapper">
+      <div class="header-left-block">
+         <p class="header-logo-name">e-Shop</p>
+      </div>
+      <nav class="header-navbar">
+         <a class="header-navbar-link" href="#">Каталог товаров</a>
+         <a class="header-navbar-link" href="#">Доставка</a>
+         <a class="header-navbar-link" href="#">Личный кабинет</a>
+      </nav>
+      <div class="header-right-block">
+         <button class="cart-button" type="button">Корзина</button>
+         <div class="cart-box-menu cartBoxMenu">
+            <div class="cart-box-name">
+                <div class="cart-box-section">Название товара</div>
+                <div class="cart-box-section">Количество</div>
+                <div class="cart-box-section">Цена за штуку</div>
+                <div class="cart-box-section">Итого</div>
+            </div>
+            <div class="cart-box-total">Товаров в корзине на сумму: $<span class="cartTotalNumber">0</span></div>
+        </div>
+      </div>
+   </div>
+</header>
+<main class="main">
+   <div class="main-wrapper wrapper">
+      <div class="main-wrapper-header">
+         <p class="main-header-text">Каталог товаров</p>
+      </div>
+      <div class="goods-list"></div>
+   </div>
+</main>
+<footer class="footer">
+   <div class="footer-wrapper wrapper">
+      <p class="footer-copyrights">© 2021 Brand All Rights Reserved.</p>
+   </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
