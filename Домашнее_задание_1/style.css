@@ -58,6 +58,7 @@ html {
 
 .header-right-block {
     align-self: center;
+    position: relative;
 }
 
 .cart-button {
@@ -134,4 +135,42 @@ html {
 .footer-copyrights {
     color: white;
     font-size: 15px;
+}
+
+/* выпадающее окно корзины */
+
+.cart-box-menu {
+    width: 600px;
+    background-color: #FFFFFF;
+    display: block;
+    visibility: hidden;
+    right: 0;
+    position: absolute;
+    box-shadow: 6px 4px 35px rgba(0, 0, 0, 0.21);
+    padding: 16px;
+    z-index: 3;
+}
+
+.cart-box-name {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.cart-box-section {
+    font-weight: bold;
+}
+
+.cart-box-total {
+    padding-top: 25px;
+    font-size: 20px;
+}
+
+.basketRow {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(214, 214, 214);
 }
