@@ -8,6 +8,7 @@ document.querySelector('.cart-button').addEventListener('click', event => {
         cartBtnOpen.style.visibility = 'hidden';
     }
 });
+
 // Товар
 const goods = [
   { title: 'Shirt', price: 150, image: 'https://picsum.photos/341/400'},
@@ -22,56 +23,97 @@ const goods = [
 ];
 // Создаем класс для товара
 class GoodsItem {
-  constructor({title, price, image}) {
+  constructor({title, price}) {
     this.title = title;
     this.price = price;
-    this.image = image;
   }
   // Выводим разметку товара
   render() {
     return `<div class="goods-item">
-      <img src=${this.image} alt="">
       <h3 class = "goods-item-heading">${this.title}</h3>
       <p class = "goods-item-text">${this.price}$</p>
     </div>`;
   }
 }
-// Класс для списка товара и рендер
+
+const reformData = (items) => {
+  return items.map(({product_name, ...rest}) => {
+    return {
+      ...rest,
+      title: product_name
+    }
+  })
+}
+
+// 
+const URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+const GOODS_POSTFIX = '/catalogData.json';
+const BASKET_GOODS_POSTFIX = '/getBasket.json';
+const ADD_GOOD_TO_BASKET_POSTFIX = '/addToBasket.json';
+const DELETE_GOOD_TO_BASKET_POSTFIX = '/deleteFromBasket.json';
+
+const service = function (url, postfix, method = "GET") {
+  return new Promise((resolve, reject) => {
+    fetch(`${url}${postfix}`, {
+      method: method
+    }).then((res) => {
+      return res.json();
+    }).then((data) => {
+      resolve(data)
+    })
+  });
+}
+
 class GoodsList {
-  constructor() {
-    this.goods = goods;
+  getSum() {
+    return this.reduce((prev, {price}) => prev + price, 0);
+  }
+  addGoodToCart() {
+    return service(URL, ADD_GOOD_TO_BASKET_POSTFIX, "POST").then((data) => {
+    
+     })
+  }
+  setGoods() {
+    return service(URL, GOODS_POSTFIX).then((data) => {
+     return reformData(data)
+    })
   }
   render() {
-    const _goods = [...this.goods];
-    const _goodsItems = _goods.map((item) => {
+    this.setGoods().then((data) => {
+      this.goods = data;
+      const _goods = [...this.goods];
+      const _goodsItems = _goods.map((item) => {
       const goodsItem = new GoodsItem(item);
       return goodsItem.render();
     });
     document.querySelector('.goods-list').innerHTML = _goodsItems.join('');
+    })
   }
-  
 }
+// Создаем класс корзины Cart
+class Cart {
+  setGoods() {
+    return service(URL, BASKET_GOODS_POSTFIX).then((data) => {
+      this.goods = reformData(data.contents);
+    });
+  }
+  deleteGoodToCart(id) {
+    return service(URL, `${DELETE_GOOD_TO_BASKET_POSTFIX}/${id}`, "DELETE").then((data) => {
+    
+    })
+  }
+  setVision() {}
+  render() {}
+}
+
+//Создаем класс добавления товара в корзину
+class CartItem {
+  setCount() {}
+  deleteItem() {}
+  render() {}
+}
+
 onload = () => {
   const goodsList = new GoodsList();
   goodsList.render();
-}
-
-// Создавем класс корзина Cart
-class Cart {
-  constructor () {
-    this.goods = [];
-  }
-  // Метод добавления товара в корзину
-  addCartItem(cartItem) {
-    this.goods.push(cartItem);
-  }
-  // Метод для вывода итоговой суммы корзины
-  totalCartPrice() {
-    let totalPrice = document.getElementsByClassName('cartTotalNumber');
-    let sum = 0;
-    this.goods.forEach (good => {
-      sum += good.price;
-    })
-    totalPrice.innerText = `${sum}`;
-  } 
 }
