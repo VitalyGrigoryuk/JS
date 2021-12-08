@@ -1,4 +1,5 @@
 "use strict";
+/*
 // Всплывающее окно по клику на кнопку корзины
 const cartBtnOpen = document.querySelector('.cart-box-menu');
 document.querySelector('.cart-button').addEventListener('click', event => {
@@ -8,6 +9,7 @@ document.querySelector('.cart-button').addEventListener('click', event => {
         cartBtnOpen.style.visibility = 'hidden';
     }
 });
+*/
 
 // Товар
 const goods = [
@@ -21,20 +23,6 @@ const goods = [
   { title: 'Shoes', price: 250, image: 'https://picsum.photos/340/402'},
   { title: 'Shirt', price: 150, image: 'https://picsum.photos/341/400'},
 ];
-// Создаем класс для товара
-class GoodsItem {
-  constructor({title, price}) {
-    this.title = title;
-    this.price = price;
-  }
-  // Выводим разметку товара
-  render() {
-    return `<div class="goods-item">
-      <h3 class = "goods-item-heading">${this.title}</h3>
-      <p class = "goods-item-text">${this.price}$</p>
-    </div>`;
-  }
-}
 
 const reformData = (items) => {
   return items.map(({product_name, ...rest}) => {
@@ -45,7 +33,6 @@ const reformData = (items) => {
   })
 }
 
-// 
 const URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 const GOODS_POSTFIX = '/catalogData.json';
 const BASKET_GOODS_POSTFIX = '/getBasket.json';
@@ -64,32 +51,6 @@ const service = function (url, postfix, method = "GET") {
   });
 }
 
-class GoodsList {
-  getSum() {
-    return this.reduce((prev, {price}) => prev + price, 0);
-  }
-  addGoodToCart() {
-    return service(URL, ADD_GOOD_TO_BASKET_POSTFIX, "POST").then((data) => {
-    
-     })
-  }
-  setGoods() {
-    return service(URL, GOODS_POSTFIX).then((data) => {
-     return reformData(data)
-    })
-  }
-  render() {
-    this.setGoods().then((data) => {
-      this.goods = data;
-      const _goods = [...this.goods];
-      const _goodsItems = _goods.map((item) => {
-      const goodsItem = new GoodsItem(item);
-      return goodsItem.render();
-    });
-    document.querySelector('.goods-list').innerHTML = _goodsItems.join('');
-    })
-  }
-}
 // Создаем класс корзины Cart
 class Cart {
   setGoods() {
@@ -114,25 +75,43 @@ class CartItem {
 }
 
 onload = () => {
-  const goodsList = new GoodsList();
-  goodsList.render();
+const app = new Vue({
+  el: "#app",
+  data: {
+    goods: goods,
+    filteredGoods: goods,
+    search: '',
+    basketVision: false
+  },
+  mounted() {
+    service(URL, GOODS_POSTFIX).then((data) => {
+      const result = reformData(data);
+      this.goods = result;
+      this.filteredGoods = result;
+    });
+  },
+  methods: {
+    filter() {
+      this.filteredGoods = this.goods.filter(({ title }) => {
+        return new RegExp(this.search, 'i').test(title);
+      });
+    },
+    showBasket() {
+      this.basketVision = true
+    },
+    closeBasket() {
+      this.basketVision = false
+    }
+  }
+})
+
+
+
+
+
 }
 
-//----------------- ДЗ 4 урока. Задание 1
-
-const text = "Lorem 'ipsum dolor' sit amet consectetur.";
-const re = /'/g;
-const result = text.replace(re, "\"");
-console.log(result);
-
-//----------------- ДЗ 4 урока. Задание 2
-
-const text2 = "Lorem 'ipsum dolor' sit aren't amet consectetur.";
-const re2 = /\b'(?!\b)|(?<!\b)'\b/gi;
-const result2 = text2.replace(re2, "\"");
-console.log(result2);
-
-//----------------- ДЗ 4 урока. Задание 3
+//----------------- Форма валидации
 
 var form = document.forms.regform;
 var spanErrorText = document.getElementsByClassName('error-text');

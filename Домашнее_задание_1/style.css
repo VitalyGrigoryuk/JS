@@ -77,6 +77,13 @@ html {
     transform: scale(0.90);
 }
 
+.search-box {
+    align-self: center;
+}
+
+.search-line {
+    height: 21px;
+}
 /* Раздел main */
 
 .main {
@@ -143,7 +150,6 @@ html {
     width: 600px;
     background-color: #FFFFFF;
     display: block;
-    visibility: hidden;
     right: 0;
     position: absolute;
     box-shadow: 6px 4px 35px rgba(0, 0, 0, 0.21);
