@@ -104,12 +104,38 @@ const app = new Vue({
     }
   }
 })
-
-
-
-
-
 }
+
+//------------- Урок 6. Задание 1, 2
+
+Vue.component('custom-button', {
+  props: ['click'],
+  template:`
+    <button @click="$emit('click')">
+      <slot></slot>
+    </button>
+  `
+})
+
+Vue.component('basket', {
+  prop: ['close'],
+  template:`
+    <div class="cart-box-menu">
+      <h1>Корзина</h1>
+      <custom-button @click="$emit('close')">Закрыть</custom-button>
+    </div>
+  `
+})
+
+Vue.component('searchbox', {
+  props: ['value'],
+  template:`
+      <input type="text" class="search-line" 
+      v-bind:value="value"
+      v-on:input="$emit('input', $event.target.value)">
+  `
+})
+
 
 //----------------- Форма валидации
 

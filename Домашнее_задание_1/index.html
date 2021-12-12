@@ -14,8 +14,9 @@
             <div class="header-left-block">
                <p class="header-logo-name">e-Shop</p>
             </div>
-            <div class="search-box">
-               <input class="search-line" type="text" v-model="search">
+            <div class="search-box" @submit.prevent="filter">
+               
+               <searchbox v-model="search" id="search-template"></searchbox>
                <button class="cart-button" id="search" v-on:click="filter">Искать</button>
             </div>
             <nav class="header-navbar">
@@ -26,7 +27,8 @@
             <div class="header-right-block">
                <button class="cart-button" type="button" v-on:click="closeBasket">Закрыть</button>
                <button class="cart-button" type="button" v-on:click="showBasket">Корзина</button>
-               <div class="cart-box-menu cartBoxMenu" v-if="basketVision">
+               <div class="cart-box-menu cartBoxMenu" v-if="basketVision"></div>
+               <basket v-if="basketVision" @close="closeBasket">
                   <div class="cart-box-name">
                       <div class="cart-box-section">Название товара</div>
                       <div class="cart-box-section">Количество</div>
@@ -34,7 +36,7 @@
                       <div class="cart-box-section">Итого</div>
                   </div>
                   <div class="cart-box-total">Товаров в корзине на сумму: $<span class="cartTotalNumber">0</span></div>
-              </div>
+               </basket>
             </div>
          </div>
       </header>
