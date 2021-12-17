@@ -46,10 +46,11 @@
                <p class="main-header-text">Каталог товаров</p>
             </div>
             <div class="goods-list">
-               <div class="goods-item" v-for="item in filteredGoods">
+               <goods-item v-for="item in filteredGoods" :item="item"></goods-item>
+               <!--<div class="goods-item" v-for="item in filteredGoods">
                   <h3 class = "goods-item-heading">{{ item.title }}</h3>
                   <p class = "goods-item-text">{{ item.price }}</p>
-                </div>
+                </div>-->
             </div>
          </div>
          <div class="form-wrapper wrapper" >
@@ -73,7 +74,6 @@
                   </p> 
                   <p>
                     <input type="submit" value="Отправить" name="submitButton">	 
-                    <!-- <input type="reset" value="Отмена" name="Reset">  -->
                   </p>		 
             </form>  
          </div>
