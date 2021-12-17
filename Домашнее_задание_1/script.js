@@ -1,4 +1,15 @@
 "use strict";
+/*
+// Всплывающее окно по клику на кнопку корзины
+const cartBtnOpen = document.querySelector('.cart-box-menu');
+document.querySelector('.cart-button').addEventListener('click', event => {
+    if (cartBtnOpen.style.visibility !== 'visible') {
+        cartBtnOpen.style.visibility = 'visible';
+    } else {
+        cartBtnOpen.style.visibility = 'hidden';
+    }
+});
+*/
 
 // Товар
 const goods = [
@@ -22,20 +33,12 @@ const reformData = (items) => {
   })
 }
 
-const URL = 'http://localhost:8000';
-const GOODS_POSTFIX = '/goods.json';
+const URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+const GOODS_POSTFIX = '/catalogData.json';
 const BASKET_GOODS_POSTFIX = '/getBasket.json';
 const ADD_GOOD_TO_BASKET_POSTFIX = '/addToBasket.json';
 const DELETE_GOOD_TO_BASKET_POSTFIX = '/deleteFromBasket.json';
 
-const fetchAddGood = (id) => {
-  fetch(`${URL}/${id}`, {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-}
 const service = function (url, postfix, method = "GET") {
   return new Promise((resolve, reject) => {
     fetch(`${url}${postfix}`, {
@@ -82,8 +85,9 @@ const app = new Vue({
   },
   mounted() {
     service(URL, GOODS_POSTFIX).then((data) => {
-      this.goods = data;
-      this.filteredGoods = data;
+      const result = reformData(data);
+      this.goods = result;
+      this.filteredGoods = result;
     });
   },
   methods: {
@@ -102,9 +106,11 @@ const app = new Vue({
 })
 }
 
+//------------- Урок 6. Задание 1, 2
+
 Vue.component('custom-button', {
   props: ['click'],
-  template: `
+  template:`
     <button @click="$emit('click')">
       <slot></slot>
     </button>
@@ -113,7 +119,7 @@ Vue.component('custom-button', {
 
 Vue.component('basket', {
   prop: ['close'],
-  template: `
+  template:`
     <div class="cart-box-menu">
       <h1>Корзина</h1>
       <custom-button @click="$emit('close')">Закрыть</custom-button>
@@ -121,43 +127,12 @@ Vue.component('basket', {
   `
 })
 
-Vue.component('goods-item', {
-  props: ['item'],
-  template: `
-    <div class="goods-item">
-      <h3>{ {item.title} }</h3>
-      <div>{ {item.price} }</div>
-      <div>
-        <custom-button @click="addGood" >добавить</custom-button>
-      </div>
-    </div>
-  `,
-  methods: {
-    addGood() {
-      fetchAddGood(this.item.id);
-    }
-  }
-})
-//---------------------
-Vue.component('basket-item', {
-  props: ['item'],
-  template: `
-    <div class="basket-item">
-      <div>{ {item.title} }</div>
-      <div>{ {item.price} }</div>
-      <div>
-        <custom-button>добавить</custom-button>
-      </div>
-    </div>
-  `
-})
-//-----------
 Vue.component('searchbox', {
   props: ['value'],
-  template: `
+  template:`
       <input type="text" class="search-line" 
       v-bind:value="value"
-      v-on:input="$emit('input', $event.target.value)"
+      v-on:input="$emit('input', $event.target.value)">
   `
 })
 
