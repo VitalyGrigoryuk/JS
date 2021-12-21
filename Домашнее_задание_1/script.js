@@ -1,6 +1,6 @@
 "use strict";
 
-// Товар
+//Товар
 const goods = [
   { title: 'Shirt', price: 150, image: 'https://picsum.photos/341/400'},
   { title: 'Socks', price: 50, image: 'https://picsum.photos/342/400'},
